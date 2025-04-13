@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Shield - Prediction Result</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Google Fonts (Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0e17;
+            color: #c6d0e6;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Animated circuit background */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #0a0e17, #141c2f);
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .circuit-lines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 20px,
+                rgba(65, 90, 119, 0.1) 20px,
+                rgba(65, 90, 119, 0.1) 22px
+            );
+            animation: circuitFlow 20s linear infinite;
+        }
+
+        @keyframes circuitFlow {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-50px, -50px); }
+        }
+
+        .navbar {
+            background: #141c2f;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .navbar-brand {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #4d6b9c !important;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            color: #6a89cc !important;
+        }
+
+        .navbar-brand i {
+            color: #4d6b9c;
+            margin-right: 0.5rem;
+            animation: shieldGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes shieldGlow {
+            0%, 100% { text-shadow: 0 0 5px rgba(77, 107, 156, 0.5); }
+            50% { text-shadow: 0 0 15px rgba(77, 107, 156, 1); }
+        }
+
+        .container-main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .card {
+            background: #1c2538;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            max-width: 600px;
+            width: 100%;
+            padding: 2rem;
+            position: relative;
+            animation: cardFadeIn 1s ease-out;
+        }
+
+        @keyframes cardFadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .card-header {
+            background: none;
+            border-bottom: none;
+            text-align: center;
+            padding-bottom: 0;
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #c6d0e6;
+            margin: 0;
+        }
+
+        .card-title i {
+            color: #4d6b9c;
+            margin-right: 0.5rem;
+        }
+
+        .result-group {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            border-radius: 8px;
+            background: #252e44;
+            opacity: 0;
+            animation: slideIn 0.5s ease-out forwards;
+        }
+
+        .result-group:nth-child(1) { animation-delay: 0.2s; }
+        .result-group:nth-child(2) { animation-delay: 0.4s; }
+
+        @keyframes slideIn {
+            0% { opacity: 0; transform: translateX(-20px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+
+        .result-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color:aliceblue;
+        }
+
+        .result-text i {
+            margin-right: 0.5rem;
+        }
+
+        .phishing {
+            color: #ff4d4d;
+            animation: alertPulse 2s infinite ease-in-out;
+        }
+
+        .safe {
+            color: #4dff4d;
+            animation: safeGlow 2s infinite ease-in-out;
+        }
+
+        @keyframes alertPulse {
+            0%, 100% { text-shadow: 0 0 5px rgba(255, 77, 77, 0.5); }
+            50% { text-shadow: 0 0 15px rgba(255, 77, 77, 0.8); }
+        }
+
+        @keyframes safeGlow {
+            0%, 100% { text-shadow: 0 0 5px rgba(77, 255, 77, 0.5); }
+            50% { text-shadow: 0 0 15px rgba(77, 255, 77, 0.8); }
+        }
+
+        .no-result {
+            font-size: 1rem;
+            color: #6a89cc;
+            margin: 0;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.5rem 1rem;
+            background: #4d6b9c;
+            color: #c6d0e6;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background 0.3s ease, transform 0.2s ease;
+            animation: buttonPulse 3s infinite ease-in-out;
+        }
+
+        .back-link:hover {
+            background: #6a89cc;
+            transform: translateY(-2px);
+        }
+
+        @keyframes buttonPulse {
+            0%, 100% { box-shadow: 0 0 10px rgba(77, 107, 156, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(77, 107, 156, 0.8); }
+        }
+
+        .footer {
+            background: #141c2f;
+            color: #6a89cc;
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: #6a89cc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #c6d0e6;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 576px) {
+            .card {
+                padding: 1.5rem;
+            }
+
+            .card-title {
+                font-size: 1.5rem;
+            }
+
+            .navbar-brand {
+                font-size: 1.3rem;
+            }
+
+            .result-text {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background">
+        <div class="circuit-lines"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><i class="fas fa-shield-alt"></i>Cyber Shield</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-main">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title"><i class="fas fa-check-circle"></i>Prediction Result</h1>
+            </div>
+            <div class="card-body">
+                {% if url_result %}
+                    <div class="result-group">
+                        <p class="result-text">
+                            <i class="fas {{ 'fa-exclamation-triangle' if url_result == 'Phishing' else 'fa-check' }}"></i>
+                            URL: <span class="{{ 'phishing' if url_result == 'Phishing' else 'safe' }}">{{ url_result }}</span>
+                        </p>
+                    </div>
+                {% else %}
+                    <div class="result-group">
+                        <p class="no-result">No URL provided</p>
+                    </div>
+                {% endif %}
+
+                {% if email_result %}
+                    <div class="result-group">
+                        <p class="result-text">
+                            <i class="fas {{ 'fa-exclamation-triangle' if email_result == 'Phishing' else 'fa-check' }}"></i>
+                            Email: <span class="{{ 'phishing' if email_result == 'Phishing' else 'safe' }}">{{ email_result }}</span>
+                        </p>
+                    </div>
+                {% else %}
+                    <div class="result-group">
+                        <p class="no-result">No Email provided</p>
+                    </div>
+                {% endif %}
+
+                <a href="/" class="back-link">Go Back</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>©️ 2025 Cyber Shield. All rights reserved. | <a href="#">Privacy Policy</a></p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
